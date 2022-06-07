@@ -18,37 +18,54 @@ import static org.junit.Assert.*;
  */
 public class AgendaTest {
     
+    private static Persona persona1;
+    private static Agenda agendaConUnaPersona;
+    
     public AgendaTest() {
     }
     
     @BeforeClass
     public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
-    @Before
-    public void setUp() {
+        persona1 = new Persona(1L,"A",1);
+        agendaConUnaPersona = new Agenda();
+        agendaConUnaPersona.agregarContacto(persona1);
     }
     
     @After
     public void tearDown() {
+        agendaConUnaPersona = new Agenda();
+        agendaConUnaPersona.agregarContacto(persona1);
     }
 
     /**
      * Test of cantidadContactos method, of class Agenda.
      */
     @org.junit.Test
-    public void testCantidadContactos() {
-        System.out.println("cantidadContactos");
+    public void testCantidadContactos1() {
+        System.out.println("cantidadContactos1");
         Agenda instance = new Agenda();
-        Integer expResult = null;
+        Integer expResult = 0;
         Integer result = instance.cantidadContactos();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    }
+    
+    @org.junit.Test
+    public void testCantidadContactos2() {
+        System.out.println("cantidadContactos2");
+        Agenda instance = new Agenda();
+        instance.agregarContacto(persona1);
+        Integer expResult = 1;
+        Integer result = instance.cantidadContactos();
+        assertEquals(expResult, result);
+    }
+    
+    @org.junit.Test
+    public void testCantidadContactos3() {
+        System.out.println("cantidadContactos3");
+        agendaConUnaPersona.eliminarContacto(persona1);
+        Integer expResult = 0;
+        Integer result = agendaConUnaPersona.cantidadContactos();
+        assertEquals(expResult, result);
     }
 
     /**
@@ -59,11 +76,19 @@ public class AgendaTest {
         System.out.println("agregarContacto");
         Persona personaNueva = null;
         Agenda instance = new Agenda();
-        Boolean expResult = null;
+        Boolean expResult = false;
         Boolean result = instance.agregarContacto(personaNueva);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    }
+    
+    @org.junit.Test
+    public void testAgregarContacto2() {
+        System.out.println("agregarContacto2");
+        Persona personaNueva = new Persona(1L,"A",1);
+        Agenda instance = new Agenda();
+        Boolean expResult = true;
+        Boolean result = instance.agregarContacto(personaNueva);
+        assertEquals(expResult, result);
     }
 
     /**
@@ -72,13 +97,19 @@ public class AgendaTest {
     @org.junit.Test
     public void testBusqueNombre() {
         System.out.println("busqueNombre");
-        Long identificacionBusco = null;
-        Agenda instance = new Agenda();
-        String expResult = "";
-        String result = instance.busqueNombre(identificacionBusco);
+        Long identificacionBusco = 1L;
+        String expResult = "A";
+        String result = agendaConUnaPersona.busqueNombre(identificacionBusco);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    }
+    
+    @org.junit.Test
+    public void testBusqueNombre2() {
+        System.out.println("busqueNombre2");
+        Long identificacionBusco = 2L;
+        String expResult = "";
+        String result = agendaConUnaPersona.busqueNombre(identificacionBusco);
+        assertEquals(expResult, result);
     }
 
     /**
@@ -87,13 +118,27 @@ public class AgendaTest {
     @org.junit.Test
     public void testEliminarContacto() {
         System.out.println("eliminarContacto");
-        Persona personaEliminar = null;
-        Agenda instance = new Agenda();
-        Boolean expResult = null;
-        Boolean result = instance.eliminarContacto(personaEliminar);
+        Persona personaEliminar = persona1;
+        Boolean expResult = true;
+        Boolean result = agendaConUnaPersona.eliminarContacto(personaEliminar);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
     
+    @org.junit.Test
+    public void testEliminarContacto2() {
+        System.out.println("eliminarContacto2");
+        Persona personaEliminar = new Persona(2L,"A",1);
+        Boolean expResult = false;
+        Boolean result = agendaConUnaPersona.eliminarContacto(personaEliminar);
+        assertEquals(expResult, result);
+    }
+    
+    @org.junit.Test
+    public void testEliminarContacto3() {
+        System.out.println("eliminarContacto3");
+        Persona personaEliminar = null;
+        Boolean expResult = false;
+        Boolean result = agendaConUnaPersona.eliminarContacto(personaEliminar);
+        assertEquals(expResult, result);
+    }
 }

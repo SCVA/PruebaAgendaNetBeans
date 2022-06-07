@@ -24,12 +24,16 @@ public class Agenda {
     }
     
     public Boolean agregarContacto(Persona personaNueva){
-        Integer cantidadActual = cantidadContactos();
-        listadeContactos.add(personaNueva);
-        if (cantidadActual == cantidadContactos()-1){
-            return true;
+        if(personaNueva!=null){
+            Integer cantidadActual = cantidadContactos();
+            listadeContactos.add(personaNueva);
+            if (cantidadActual == cantidadContactos()-1){
+                return true;
+            }
+            return false;
+        }else{
+            return false;
         }
-        return false;
     }
     
     public String busqueNombre(Long identificacionBusco){
@@ -44,14 +48,18 @@ public class Agenda {
     }
     
     public Boolean eliminarContacto(Persona personaEliminar){
-        Persona personaTemporal;
-        for(int i =0; i<cantidadContactos();i++){
-            personaTemporal = listadeContactos.get(i);
-            if(personaEliminar.getIdentificacion().equals(personaTemporal.getIdentificacion())){
-                listadeContactos.remove(i);
-                return true;
+        if(personaEliminar!=null){
+            Persona personaTemporal;
+            for(int i =0; i<cantidadContactos();i++){
+                personaTemporal = listadeContactos.get(i);
+                if(personaEliminar.getIdentificacion().equals(personaTemporal.getIdentificacion())){
+                    listadeContactos.remove(i);
+                    return true;
+                }
             }
+            return false;
+        }else{
+            return false;
         }
-        return false;
     }
 }
